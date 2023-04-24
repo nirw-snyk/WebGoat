@@ -1,0 +1,38 @@
+name: "Snyk"
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: install Snyk CLI
+        run: npm install -g snyk
+      - name: Lodash Install
+        run: npm install lodash --save
+      - name: NPM Install
+        run: npm install 
+      - name: snyk-to-html Install
+        run: npm install -g snyk-to-html 
+      - name: run Snyk Open Source Test
+        run: snyk monitor --sarif > snyk.sarif || true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: run Snyk Code Test
+        run: snyk code test --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        continue-on-error: true 
+      - name: Cache
+        uses: actions/cache@v3.0.11
+        with: 
+         path: $GITHUB_WORKSPACE #testing workspace
+         key: ${{ runner.os }}-primes
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v2
+        with:
+          name: snyk-report
+          path: snyk.sarif
