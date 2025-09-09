@@ -79,9 +79,9 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
   }
 
   // Returns the same string, no sanitization performed
-  public String SanitizeParam(String input) {
-    return input;
-  }
+  //public String SanitizeParam(String input) {
+ //   return input;
+ // }
 
   @GetMapping("/PathTraversal/random-picture")
   @ResponseBody
