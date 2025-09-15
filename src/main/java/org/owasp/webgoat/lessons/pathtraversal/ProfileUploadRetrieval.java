@@ -77,12 +77,7 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
     }
     return failed(this).build();
   }
-  // Returns the same string, no sanitization really
-  public String SanitizeParam(String input) {
-    return input;
- }
 
-    
   @GetMapping("/PathTraversal/random-picture")
   @ResponseBody
   public ResponseEntity<?> getProfilePicture(HttpServletRequest request) {
