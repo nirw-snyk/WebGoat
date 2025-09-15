@@ -77,7 +77,7 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
     }
     return failed(this).build();
   }
-  // Returns the same string, no sanitization performed
+  // Returns the same string, no sanitization really
   public String SanitizeParam(String input) {
     return input;
  }
